@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pokedex</title>
+</head>
+<body>
+    <main>
+        <img src="#" alt="" class="pokemon" id="imagem">
+        
+        <h1 class="dados_pokemon">
+            <span class="nro_pokemon" id="numero"></span> -
+            <span class="nome_pokemon" id="nome"></span>
+        </h1>
+
+        <form class="form">
+            <input id="busca" type="search" class="busca" placeholder="nome ou número" required>
+        </form>
+
+        <button onclick="buscar()" class="botao">Buscar</button>
+        
+        <img src="./imagens/pokedex.png" alt="pokedex" class="pokedex">
+        
+
+
+    </main>
+    <script>
+        async function buscar(){
+            var nome = document.getElementById('busca').value.toLowerCase()
+            
+            var resposta = await fetch('https://pokeapi.co/api/v2/pokemon/'+ nome)
+            
+            var dados = await resposta.json()
+
+            document.getElementById('numero').textContent = dados.id;
+            document.getElementById('nome').textContent = dados.name;
+            document.getElementById('imagem').src = dados['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
+          
+        }
+    </script>
+</body>
+</html>
